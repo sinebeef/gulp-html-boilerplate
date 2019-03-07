@@ -11,31 +11,41 @@ const browserSync = require('browser-sync').create();
 function startbrowsersync(done){
     browserSync.init({
         server: {
-            baseDir: "./dist"
+            baseDir: "./tmp"
         },
         port: 3000
     });
     done();
 }
-// BrowserSync Reload (callback)
+// BrowserSync Reload (no callback)
 function browserSyncReload() {
     browserSync.reload;
 }
 
 function build_css() {
     return src('src/*.scss')
+    .pipe(dest('tmp/'))
     .pipe(sass())
     .pipe(autoprefixer({browsers: ['cover 99.5%'],cascade: false}))
+    .pipe(dest('tmp/'))
+    .pipe(browserSync.stream())
     .pipe(uglifycss({"uglyComments": true}))
-    .pipe(rename('style.css'))
-    .pipe(dest('dist/'))
-    .pipe(browserSync.stream());
+    .pipe(rename('style.min.css'))
+    .pipe(dest('dist/'));
 }
 
 function build_html() {
     return src('src/*.html')
-    .pipe(dest('dist/'))
-    .pipe(browserSync.stream());
+    .pipe(dest('tmp/'))
+    .pipe(browserSync.stream())
+    .pipe(dest('dist/'));
+}
+
+function build_js() {
+    return src('src/*.js')
+    .pipe(dest('tmp/'))
+    .pipe(browserSync.stream())
+    .pipe(dest('dist/'));
 }
 
 function serve() {
@@ -48,6 +58,12 @@ function serve() {
 
     watch('src/*.html', { events: 'change' }, function(done) {
         build_html();
+        browserSyncReload();
+        done();
+    });
+
+    watch('src/*.js', { events: 'change' }, function(done) {
+        build_js();
         browserSyncReload();
         done();
     });

@@ -1,3 +1,5 @@
 # exclude these files and folders
 node_modules/
 dist/*
+tmp/*
+src/plugins

@@ -1,20 +1,23 @@
-$primary-color: #bbbbbb;
+$bg-color: #e7e7e7;
+$primary-color: #777777;
 html, body {
-    background: $primary-color;
-    font-size: 23px;
+    background: $bg-color;
+    font-size: 22px;
 }
 ul{
     li{
         a{
-            font-color:cyan;
+            color:cyan;
         }
     }
 }
 h1 {
     color: darken($primary-color, 20%);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 2em;
+    font-size: 8em;
     text-align: center;
+    letter-spacing: -12px;
+    background: linear-gradient(to left, #61D2FF, #F26BAF);
 }
 p {
     font-size: 19px;
@@ -24,7 +27,7 @@ h2, h3 {
     font-weight: bold;
 }
 .superduper {
-    border: 2px solid brown;
+    border: 3px solid brown;
 }
 .megaman {
     font-weight: bold;
@@ -33,5 +36,5 @@ h2, h3 {
     background: red;
 }
 .woot {
-    font-weight: 999;
+    font-weight: 300;
 }
