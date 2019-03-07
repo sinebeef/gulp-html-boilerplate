@@ -71,4 +71,3 @@ function serve() {
 }
 
 exports.default = series(startbrowsersync, serve);
-
